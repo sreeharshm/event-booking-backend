@@ -13,7 +13,9 @@ class EventAddSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username","ph_number","email","password"]
+        fields = ["id","username","ph_number","email"]
+
+        password = serializers.CharField(write_only=True, required=False)
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)

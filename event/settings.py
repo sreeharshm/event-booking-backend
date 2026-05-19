@@ -135,7 +135,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'eventapp.User'
 
-CORS_ALLOWED_ORGINS = [
+CORS_ALLOWED_ORIGINS = [
      'http://localhost:5173'
 ]
 

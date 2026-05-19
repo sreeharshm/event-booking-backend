@@ -73,7 +73,7 @@ class CurrentUserView(APIView):
         return Response(serializer.data)
     
 class GetAllUserView(APIView):
-    permission_classes=[permissions.IsAdminUser]
+    permission_classes=[permissions.IsAuthenticated]
     authentication_classes=[JWTAuthentication]
 
     def get(self, request):
@@ -84,6 +84,9 @@ class GetAllUserView(APIView):
 
 
 class EventView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    
     def get(self, request):
         event = EventAdd.objects.all()
         serializer = EventAddSerializer(event, many=True)

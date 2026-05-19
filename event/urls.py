@@ -34,6 +34,7 @@ urlpatterns = [
     path('register/', UserView.as_view(), name='customer-register'),
     path('useredit/<int:id>/', UserEditView.as_view(), name='user profle editing'),
     path('alluser/', GetAllUserView.as_view()),
+    path('current-user/', CurrentUserView.as_view()),
     path('login/', LoginView.as_view(), name='login'),
     path('fav/<int:id>/', FavouriteEventView.as_view(), name='favourite-event'),
     path('event/<int:id>/', EventDetailView.as_view()),
