@@ -51,13 +51,32 @@ class Booking(models.Model):
     @property
     def total_price(self):
         return self.quantity * self.event.price
-    
+
+    def save(self, *args, **kwargs):
+        # Check available capacity before saving
+        if self.pk is None:  # only for new bookings
+            if self.event.capacity < self.quantity:
+                raise ValueError("Not enough tickets available")
+
+            # Reduce capacity
+            self.event.capacity -= self.quantity
+            self.event.save()
+
+        super().save(*args, **kwargs)
+
     def get_available_tickets(self, obj):
         total_booked = Booking.objects.filter(event=obj.event).aggregate(
-        total=models.Sum('quantity')
-    )['total'] or 0
+            total=models.Sum('quantity')
+        )['total'] or 0
 
         return obj.event.capacity - total_booked
+    
+
+    def delete(self, *args, **kwargs):
+        self.event.capacity += self.quantity
+        self.event.save()
+
+        super().delete(*args, **kwargs)
 
 
 

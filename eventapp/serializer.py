@@ -54,12 +54,10 @@ class BookingSerializer(serializers.ModelSerializer):
     def validate(self, data):
         event = data['event']
         quantity = data['quantity']
-        total_booked = Booking.objects.filter(event=event).aggregate(
-        total=models.Sum('quantity')
-        )['total'] or 0
 
-        if total_booked + quantity > event.capacity:
+        if quantity > event.capacity:
             raise serializers.ValidationError("Not enough tickets available")
+
         return data
 
 
