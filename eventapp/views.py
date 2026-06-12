@@ -14,7 +14,6 @@ from reportlab.lib.pagesizes import portrait
 from reportlab.lib.utils import ImageReader
 from io import BytesIO
 
-
 from .utilis.send_email_otp import *
 from .utilis.otp_generate import *
 
@@ -72,6 +71,8 @@ class CurrentUserView(APIView):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
     
+
+
 class GetAllUserView(APIView):
     permission_classes=[permissions.IsAuthenticated]
     authentication_classes=[JWTAuthentication]
@@ -138,36 +139,61 @@ class EventEditView(APIView):
 
     
 
-
 class FavouriteEventView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
-    def get(self, request, id=None):
-        # If an ID is provided, maybe you want to check if THAT specific event is favorited
-        # Otherwise, return the list of all favorites
-        user = request.user
-        fav_events = FavouriteEvent.objects.filter(user=user)
-        serializer = FavouriteEventSerializer(fav_events, many=True)
-        return Response(serializer.data)
 
-    def post(self, request, id):  # 'id' comes from the URL path
+    def post(self, request, id):  
         user = request.user
         
-        # Look for the event using the ID from the URL
         event = get_object_or_404(EventAdd, id=id)
-
-        # Toggle Logic
         fav_exists = FavouriteEvent.objects.filter(user=user, event=event).first()
 
         if fav_exists:
             fav_exists.delete()
             return Response({"message": "Removed from favorites", "is_favorited": False}, status=200)
         
-        # If it doesn't exist, create it
         FavouriteEvent.objects.create(user=user, event=event)
         return Response({"message": "Added to favorites", "is_favorited": True}, status=201)
     
+
+
+class RemoveFavEvent(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def delete(self, request, id):
+        event = get_object_or_404(EventAdd, id=id)
+
+        FavouriteEvent.objects.filter(
+            user=request.user,
+            event=event
+        ).delete()
+
+        return Response(
+            {"message": "Removed from favorites"},
+            status=status.HTTP_200_OK
+        )
+    
+
+
+class GetFavEvent(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def get(self, request):
+        fav_events = FavouriteEvent.objects.filter(
+            user_id=request.user.id
+        )
+
+        serializer = FavouriteEventSerializer(
+            fav_events,
+            many=True
+        )
+
+        return Response(serializer.data)
+
 
     
 class BookingView(APIView):

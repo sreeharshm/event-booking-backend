@@ -37,6 +37,8 @@ urlpatterns = [
     path('current-user/', CurrentUserView.as_view()),
     path('login/', LoginView.as_view(), name='login'),
     path('fav/<int:id>/', FavouriteEventView.as_view(), name='favourite-event'),
+    path('removefav/<int:id>/', RemoveFavEvent.as_view(),),
+    path('allfav/', GetFavEvent.as_view(),),
     path('event/<int:id>/', EventDetailView.as_view()),
     path('booking/', BookingView.as_view(), name='booking-view'),
 
