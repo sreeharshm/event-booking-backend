@@ -90,16 +90,17 @@ class EventView(APIView):
     
     def get(self, request):
         event = EventAdd.objects.all()
-        serializer = EventAddSerializer(event, many=True)
+        # FIX: Pass request in context so get_is_favorite can read request.user
+        serializer = EventAddSerializer(event, many=True, context={'request': request})
         return Response(serializer.data)
-    
-    
+
 
 class EventDetailView(APIView):
     def get(self, request, *args, **kwargs):
         event_id = kwargs.get("id")
         event = get_object_or_404(EventAdd, id=event_id)
-        serializer = EventAddSerializer(event)
+        # FIX: Also add context here for consistency when viewing a single event card
+        serializer = EventAddSerializer(event, context={'request': request})
         return Response(serializer.data)
     
     
@@ -193,7 +194,6 @@ class GetFavEvent(APIView):
         )
 
         return Response(serializer.data)
-
 
     
 class BookingView(APIView):

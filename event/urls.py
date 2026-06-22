@@ -44,11 +44,9 @@ urlpatterns = [
 
     path('ticket/<int:id>/', DownloadTicket.as_view()),
 
-
     path('password-reset/send-otp/', SendPasswordResetOTP.as_view(), name='send-password-reset-otp'),
     path('password-reset/confirm/', VerifyPasswordResetOTP.as_view()),
-    path('password-reset/reset/', ResetPasswordView.as_view())
-    
+    path('password-reset/reset/', ResetPasswordView.as_view()),
 ]
 
 if settings.DEBUG:

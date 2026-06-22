@@ -4,11 +4,34 @@ from django.contrib.auth import authenticate
 
 
 class EventAddSerializer(serializers.ModelSerializer):
+    is_favorite = serializers.SerializerMethodField()
 
     class Meta:
         model = EventAdd
-        fields = ["id","title","description","date","date_end","location","price","capacity","image","type"]
+        fields = [
+            "id",
+            "title",
+            "description",
+            "date",
+            "date_end",
+            "location",
+            "price",
+            "capacity",
+            "image",
+            "type",
+            "is_favorite",
+        ]
 
+    def get_is_favorite(self, obj):
+        request = self.context.get("request")
+
+        if request and request.user.is_authenticated:
+            return FavouriteEvent.objects.filter(
+                user=request.user,
+                event=obj
+            ).exists()
+
+        return False
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
