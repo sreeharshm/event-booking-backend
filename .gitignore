@@ -1,6 +1,32 @@
-env/
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+.venv/
+
+# Database (local only)
 db.sqlite3
+
+# Media uploads (IMPORTANT: don't upload user files)
 media/
+
+# Environment variables
 .env
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
