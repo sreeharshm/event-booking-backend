@@ -136,8 +136,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'eventapp.User'
 
 CORS_ALLOWED_ORIGINS = [
-     'http://localhost:5173'
+     'http://localhost:5173',
+     "https://your-vercel-app.vercel.app"
 ]
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -170,5 +172,8 @@ EMAIL_HOST_PASSWORD = 'vock ppat rvlf tdjr'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = [
+    "event-booking-backend-qfmh.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
