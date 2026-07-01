@@ -135,11 +135,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'eventapp.User'
 
-CORS_ALLOWED_ORIGINS = [
-     'http://localhost:5173',
-     "https://your-vercel-app.vercel.app"
-]
-
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -177,3 +172,5 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1"
 ]
+
+DEBUG = False
