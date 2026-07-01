@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'eventapp',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    'cloudinary',
+    'cloudinary_storage',
     
 ]
 
@@ -129,9 +131,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = 'static/'
 
-MEDIA_ROOT = BASE_DIR / 'media'
-
-
 AUTH_USER_MODEL = 'eventapp.User'
 
 
@@ -174,4 +173,10 @@ ALLOWED_HOSTS = [
 
 DEBUG = False
 
-MEDIA_URL = "/media/"
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'ytpbbqe6',
+    'API_KEY': '447123146569114',
+    'API_SECRET': 'KlkZGx574LERZX33YSLWxFoIK5g',
+}
