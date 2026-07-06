@@ -34,11 +34,13 @@ class EventAddSerializer(serializers.ModelSerializer):
         return False
 
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
-        fields = ["id","username","ph_number","email"]
+        fields = ["id", "username", "ph_number", "email", "password"]
 
-        password = serializers.CharField(write_only=True, required=False)
+        password = serializers.CharField(write_only=True)
+
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)

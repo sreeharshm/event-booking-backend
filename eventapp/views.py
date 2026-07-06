@@ -354,7 +354,7 @@ class DownloadTicket(APIView):
         response["Content-Disposition"] = f'attachment; filename=ticket_{id}.pdf'
 
         # Modern Ticket Size (Portrait)
-        w, h = 300, 500
+        w, h = 300
         pdf = canvas.Canvas(response, pagesize=(w, h))
 
         # --- BACKGROUND & BORDER ---
