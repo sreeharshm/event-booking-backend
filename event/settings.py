@@ -133,11 +133,6 @@ STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'eventapp.User'
 
-
-CORS_ALLOWED_ORIGINS = [
-    "https://eventt-bookingg-hubb.vercel.app"
-]
-
 from datetime import timedelta
 
 REST_FRAMEWORK = {
@@ -166,6 +161,12 @@ EMAIL_HOST_PASSWORD = 'vock ppat rvlf tdjr'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
+CORS_ALLOWED_ORIGINS = [
+    "https://eventt-bookingg-hubb.vercel.app",
+    "http://localhost:5173",
+
+]
+
 ALLOWED_HOSTS = [
     "event-booking-backend-qfmh.onrender.com",
     "localhost",
@@ -173,6 +174,8 @@ ALLOWED_HOSTS = [
 ]
 
 DEBUG = False
+
+DEBUG = True
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
