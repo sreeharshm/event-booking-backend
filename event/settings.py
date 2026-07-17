@@ -175,7 +175,6 @@ ALLOWED_HOSTS = [
 
 DEBUG = False
 
-DEBUG = True
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
