@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 
 class EventAddSerializer(serializers.ModelSerializer):
     is_favorite = serializers.SerializerMethodField()
+    image = serializers.ImageField(use_url=True)
 
     class Meta:
         model = EventAdd
@@ -32,6 +33,7 @@ class EventAddSerializer(serializers.ModelSerializer):
             ).exists()
 
         return False
+    
 
 class UserSerializer(serializers.ModelSerializer):
 
