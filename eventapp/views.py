@@ -87,12 +87,14 @@ class GetAllUserView(APIView):
 
 class EventView(APIView):
     permission_classes = [AllowAny]
-    authentication_classes = [JWTAuthentication]
-    
+
     def get(self, request):
         event = EventAdd.objects.all()
-        # FIX: Pass request in context so get_is_favorite can read request.user
-        serializer = EventAddSerializer(event, many=True, context={'request': request})
+        serializer = EventAddSerializer(
+            event,
+            many=True,
+            context={'request': request}
+        )
         return Response(serializer.data)
 
 
