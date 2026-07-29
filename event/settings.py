@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,21 +80,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'event.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "event_booking",
-        "USER": "postgres",
-        "PASSWORD": "sree",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -137,7 +125,6 @@ STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'eventapp.User'
 
-from datetime import timedelta
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -145,7 +132,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
@@ -196,3 +182,25 @@ CLOUDINARY_STORAGE = {
 }
 
 CORS_ALLOW_CREDENTIALS = True
+
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
+    )
+}
+
+
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "event_booking",
+        "USER": "postgres",
+        "PASSWORD": "sree",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
