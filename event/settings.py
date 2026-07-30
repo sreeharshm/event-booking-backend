@@ -188,5 +188,16 @@ CLOUDINARY_STORAGE = {
 
 CORS_ALLOW_CREDENTIALS = True
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "event_booking",
+        "USER": "postgres",
+        "PASSWORD": "sree",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
+
 
 
