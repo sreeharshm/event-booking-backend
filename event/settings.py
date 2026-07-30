@@ -169,7 +169,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1"
 ]
 
-DEBUG = os.environ.get("DEBUG") == "True"
+DEBUG = True
 
 STORAGES = {
     "default": {
