@@ -26,7 +26,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yxupktvu18eduny6!3oe(onb5pd-t&cv4n&$xo+um9kv12@@ib'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -78,6 +77,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'event.wsgi.application'
+
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
+    )
+}
 
 
 # Password validation
@@ -163,8 +169,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1"
 ]
 
-DEBUG = False
-
+DEBUG = os.environ.get("DEBUG") == "True"
 
 STORAGES = {
     "default": {
@@ -184,23 +189,4 @@ CLOUDINARY_STORAGE = {
 CORS_ALLOW_CREDENTIALS = True
 
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
-    )
-}
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "event_booking",
-        "USER": "postgres",
-        "PASSWORD": "sree",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
