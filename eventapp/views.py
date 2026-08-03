@@ -223,26 +223,13 @@ class LoginView(APIView):
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
+        print(request.data)
+
         serializer = self.serializer_class(data=request.data)
 
         if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        user = serializer.validated_data['user']
-
-        refresh = RefreshToken.for_user(user)
-
-        return Response({
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-            'user': {
-                "username": user.username,
-                "ph_number": user.ph_number,
-                "email": user.email,
-                "is_superuser": user.is_superuser,
-                "is_staff": user.is_staff,
-            }
-        })
+            print(serializer.errors)
+        return Response(serializer.errors, status=400)
 
 
 
