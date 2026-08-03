@@ -89,21 +89,31 @@ class BookingSerializer(serializers.ModelSerializer):
 
 
 
+User = get_user_model()
+
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(required=True, write_only=True)
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        username = attrs.get('username')
-        password = attrs.get('password')
+        username = attrs.get("username")
+        password = attrs.get("password")
+
+        print("Username:", username)
+        print("Password:", password)
+
+        try:
+            user = User.objects.get(username=username)
+            print("User exists:", user.username)
+            print("Password correct:", user.check_password(password))
+        except User.DoesNotExist:
+            print("User does not exist")
 
         user = authenticate(username=username, password=password)
+        print("Authenticate result:", user)
 
         if not user:
             raise serializers.ValidationError("invalid username or password")
-        
-        if not user.is_active:
-            raise serializers.ValidationError("user account is disabled")
-        
-        attrs ['user'] = user
+
+        attrs["user"] = user
         return attrs
