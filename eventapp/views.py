@@ -20,6 +20,23 @@ from .utilis.otp_generate import *
 
 from .models import *
 from .serializer import *
+from django.contrib.auth import get_user_model
+
+
+class CheckAdmin(APIView):
+    permission_classes = []
+
+    def get(self, request):
+        try:
+            user = User.objects.get(username="admin")
+            return Response({
+                "exists": True,
+                "is_active": user.is_active,
+                "is_staff": user.is_staff,
+                "is_superuser": user.is_superuser,
+            })
+        except User.DoesNotExist:
+            return Response({"exists": False})
 
 
 class UserView(APIView):
