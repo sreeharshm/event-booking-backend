@@ -39,6 +39,26 @@ class CheckAdmin(APIView):
             return Response({"exists": False})
 
 
+
+User = get_user_model()
+
+class CreateAdmin(APIView):
+    permission_classes = []
+
+    def get(self, request):
+        if User.objects.filter(username="admin").exists():
+            return Response({"message": "Admin already exists"})
+
+        User.objects.create_superuser(
+            username="admin",
+            password="admin",
+            email="admin@example.com"
+        )
+
+        return Response({"message": "Admin created"})
+    
+
+
 class UserView(APIView):
     def get(self, request):
         user = User.objects.all()

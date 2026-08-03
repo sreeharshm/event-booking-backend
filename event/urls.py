@@ -48,6 +48,7 @@ urlpatterns = [
     path('password-reset/confirm/', VerifyPasswordResetOTP.as_view()),
     path('password-reset/reset/', ResetPasswordView.as_view()),
     path("check-admin/", CheckAdmin.as_view()),
+    path("create-admin/", CreateAdmin.as_view()),
 ]
 
 if settings.DEBUG:
