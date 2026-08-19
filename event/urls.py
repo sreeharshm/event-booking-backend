@@ -49,7 +49,6 @@ urlpatterns = [
     path('password-reset/reset/', ResetPasswordView.as_view()),
     path("check-admin/", CheckAdmin.as_view()),
     path("create-admin/", CreateAdmin.as_view()),
-    path("database-test/", DatabaseTestView.as_view()),
 ]
 
 if settings.DEBUG:
