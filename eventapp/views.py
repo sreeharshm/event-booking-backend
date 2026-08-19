@@ -23,6 +23,24 @@ from .serializer import *
 from django.contrib.auth import get_user_model
 
 
+
+from django.db import connection
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+
+from django.db import connection
+
+
+class DatabaseTestView(APIView):
+    def get(self, request):
+        return Response({
+            "database_engine": connection.settings_dict["ENGINE"],
+            "database_name": connection.settings_dict["NAME"],
+            "database_host": connection.settings_dict["HOST"],
+        })
+
+
 class CheckAdmin(APIView):
     permission_classes = []
 
