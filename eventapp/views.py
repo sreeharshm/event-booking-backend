@@ -46,16 +46,29 @@ class CreateAdmin(APIView):
     permission_classes = []
 
     def get(self, request):
-        if User.objects.filter(username="admin").exists():
-            return Response({"message": "Admin already exists"})
+        try:
+            user = User.objects.get(username="admin")
 
-        User.objects.create_superuser(
-            username="admin",
-            password="admin",
-            email="admin@example.com"
-        )
+            user.set_password("admin")
+            user.is_active = True
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
 
-        return Response({"message": "Admin created"})
+            return Response({
+                "message": "Admin password reset successfully"
+            })
+
+        except User.DoesNotExist:
+            user = User.objects.create_superuser(
+                username="admin",
+                password="admin",
+                email="admin@example.com"
+            )
+
+            return Response({
+                "message": "Admin created successfully"
+            })
     
 
 
